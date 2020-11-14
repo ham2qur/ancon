@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="fpi_invoice_user" model="res.groups">
+        <field name="name">Permisos para enviar a la cola de impresiones desde el modulo de Facturación.</field>
+        <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fpi_printer_manager,fpi.printer,model_fpi_printer,fpi_manager,1,1,1,1
+access_fpi_printer_all,fpi.printer,model_fpi_printer,fpi_user,1,1,1,1
+access_fpi_document_manager,fpi.document,model_fpi_document,fpi_manager,1,1,1,1
+access_fpi_document_all,fpi.document,model_fpi_document,fpi_user,1,1,1,1
+access_fpi_documents_in_progress_list_manager,fpi.documents.in.progress.list,model_fpi_documents_in_progress_list,fpi_manager,1,1,1,1
+access_fpi_documents_in_progress_list_all,fpi.documents.in.progress.list,model_fpi_documents_in_progress_list,fpi_user,1,1,1,1

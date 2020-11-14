@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fpi_invoice_documents_pending_list,fpi.invoice.documents.pending.list,model_fpi_invoice_documents_pending_list,fpi_invoice_user,1,1,1,1
+access_fpi_invoice_line_documents_in_progress_list,fpi.invoice.line.documents.pending.list,model_fpi_invoice_line_documents_pending_list,fpi_invoice_user,1,1,1,1
