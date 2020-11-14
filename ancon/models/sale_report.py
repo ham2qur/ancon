@@ -130,7 +130,7 @@ class ReportDailySales(models.AbstractModel):
 
 
     @api.multi
-    def get_report_values(self, docids, data=None):
+    def _get_report_values(self, docids, data=None):
         data = dict(data or {})
         data.update(self.generate_data(
             start_on=data.get('start_on', False),
@@ -165,7 +165,7 @@ class DailySalesReportWizard(models.TransientModel):
         data = {}
         if (not self.env.user.company_id.logo):
             raise UserError(_("You have to set a logo or a layout for your company."))
-        elif (not self.env.user.company_id.external_report_layout):
+        elif (not self.env.user.company_id.external_report_layout_id):
             raise UserError(_("You have to set your reports's header and footer layout."))
         if self.env.user:
             data['user_id'] = self.env.user.id

@@ -23,7 +23,7 @@
               <tbody>
                 <tr align="left">
                   <td><t t-esc="env.user.partner_id.name"/></td>
-                  <td><t t-esc="store_id.name"/></td>
+		  <td><t t-esc="store_id and store_id.name or ''"/></td>
                   <td><t t-esc="start_on" t-options="{'widget': 'date'}"/></td>
                   <td><t t-esc="end_on" t-options="{'widget': 'date'}"/></td>
                 </tr>
@@ -61,7 +61,7 @@
                         <th></th>
                         <th></th>
                         <th>Total</th>
-                        <td align="right"><t t-esc="invoices_total" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                        <td align="right"><t t-esc="invoices_total or 0" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
                     </tr>
                 </thead>                
             </table>
@@ -95,7 +95,7 @@
                             <tr t-foreach="subtotals" t-as="subtotal">
                                 <td align="right"><t t-esc="subtotal['total']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
                             </tr>
-                            <th><t t-esc="subtotals_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>
+                            <th><t t-esc="subtotals_total or 0" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>
                         </tbody>
                     </table>
                 </div>
@@ -109,7 +109,7 @@
                             <tr t-foreach="percentages" t-as="percentage">
                                 <td align="right"><t t-esc="percentage['total']" t-options="{'align':'right', 'widget': 'float', 'precision': currency_precision}"/></td>
                             </tr>
-                            <th><t t-esc="percentages_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>   
+                            <th><t t-esc="percentages_total or 0" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>   
                         </tbody>
                     </table>
                 </div>
@@ -123,7 +123,7 @@
                             <tr t-foreach="payments" t-as="payment">
                                 <td align="right"><t t-esc="payment['total']" t-options="{'align':'right', 'widget': 'float', 'precision': currency_precision}"/></td>
                             </tr>
-                            <th><t t-esc="payments_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>   
+                            <th><t t-esc="payments_total or 0" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>   
                         </tbody>
                     </table>
                 </div>
