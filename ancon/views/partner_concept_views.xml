@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='ancon.partner_concept_form' model='ir.ui.view'>
+            <field name='name'>ancon.partner.concept.form</field>
+            <field name='model'>neonety.partner.concept</field>
+            <field name='inherit_id' ref='neonety.partner_concepts_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='name']" position='replace'>
+                    <field name='code'/>
+                    <field name='name'/>
+                    <field name="type"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.partner_concept_tree' model='ir.ui.view'>
+            <field name='name'>ancon.partner.concept.tree</field>
+            <field name='model'>neonety.partner.concept</field>
+            <field name='inherit_id' ref='neonety.partner_concepts_tree'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='name']" position='replace'>
+                    <field name='code'/>
+                    <field name='name'/>
+                    <field name="type"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.partner_concept_search' model='ir.ui.view'>
+            <field name='name'>ancon.partner.concept.search</field>
+            <field name='model'>neonety.partner.concept</field>
+            <field name='inherit_id' ref='neonety.partner_concepts_search'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='name']" position='replace'>
+                    <field name='code'/>
+                    <field name='name'/>
+                    <field name="type"/>
+                </xpath>
+            </field>
+        </record>
+        <menuitem
+            id='ancon.partner_concept_menu_root'
+            name='Proveedores'
+            parent='account.menu_finance_configuration'/>
+        <menuitem
+            id='ancon.partner_concept_menu'
+            name='Conceptos'
+            parent='ancon.partner_concept_menu_root'
+            sequence="0"
+            action='neonety.partner_concepts_window'/>
+    </data>
+</odoo>

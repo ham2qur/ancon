@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="ancon.withholding_certificate_report_action"
+            string="Certificado de Retención"
+            model="ancon.withholding.certificate"
+            report_type="qweb-pdf"
+            file="ancon.withholding_certificate" 
+            name="ancon.withholding_certificate"
+            print_report_name="object.state == 'approved' and 'Certificado - {0}'.format(object.number)"
+        />
+    </data>
+</odoo>

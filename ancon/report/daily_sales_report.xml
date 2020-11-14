@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ancon.daily_sales_report_action" model="ir.actions.report">
+        <field name="name">Diario de Caja</field>
+        <field name="model">report.ancon.daily_sales_report_queryset</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ancon.daily_sales_report_queryset</field>
+    </record>
+</odoo>

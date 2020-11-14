@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='ancon.view_company_form' model='ir.ui.view'>
+            <field name='name'>ancon.view.company.form</field>
+            <field name='model'>res.company</field>
+            <field name='inherit_id' ref='base.view_company_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='website']" position='before'>
+                    <field name='ruc' style="width:170px!important;" required="1"/>
+                    <field name='dv' style="width:50px!important;" required="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.view_company_form_email_field' model='ir.ui.view'>
+            <field name='name'>ancon.view.company.form.email.field</field>
+            <field name='model'>res.company</field>
+            <field name='inherit_id' ref='base.view_company_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='email']" position='replace'>
+                    <field name="email" required="1" widget="email"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.view_company_form_phone_field' model='ir.ui.view'>
+            <field name='name'>ancon.view.company.form.phone.field</field>
+            <field name='model'>res.company</field>
+            <field name='inherit_id' ref='base.view_company_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='phone']" position='replace'>
+                    <field name="phone" required="1" widget="phone"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='ancon.account_payment_term_form' model='ir.ui.view'>
+            <field name='name'>ancon.account.payment.term.form</field>
+            <field name='model'>account.payment.term</field>
+            <field name='inherit_id' ref='account.view_payment_term_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='name']" position='after'>
+                    <field name='payment_term_type' widget="radio" />
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.account_payment_term_tree' model='ir.ui.view'>
+            <field name='name'>ancon.account.payment.term.tree</field>
+            <field name='model'>account.payment.term</field>
+            <field name='inherit_id' ref='account.view_payment_term_tree'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='name']" position='after'>
+                    <field name='payment_term_type' />
+                </xpath>
+            </field>
+        </record>
+        <record id="ancon.validate_button_invoice_form" model="ir.ui.view">
+            <field name='name'>ancon.invoice.credit.note.button.form</field>
+            <field name='model'>account.invoice</field>
+            <field name='inherit_id' ref='account.invoice_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//button[@name='action_invoice_open']" position='replace'>
+                    <button name="action_invoice_open" type="object" string="Validar" class="oe_highlight o_invoice_validate" groups="account.group_account_invoice" attrs="{'invisible': ['|', '|',('type', '=', 'out_refund'), ('state', 'in', ['open', 'paid']), ('credit_note_state', '!=', 'draft')]}"/>
+                    <button name="action_invoice_open" type="object" string="Validar" class="oe_highlight o_invoice_validate" groups="ancon.account_invoice_add_credit_notes" attrs="{'invisible': ['|', '|',('type', '!=', 'out_refund'), ('state', 'in', ['open', 'paid']), ('credit_note_state', '!=', 'approved')]}"/>
+                    <field name="credit_note_state" invisible="1" />
+                    <button 
+                        name="action_credit_note_request"
+                        string="SOLICITAR APROBACIÓN DE NC" 
+                        type="object" class="btn-primary"
+                        groups="ancon.account_invoice_request_credit_notes"
+                        attrs="{'invisible': ['|', '|',('type', '!=', 'out_refund'), ('state', 'in', ['open', 'paid']), ('credit_note_state', '!=', 'draft')]}"
+                        />
+                    <button 
+                        name="action_credit_note_request_reject"
+                        string="RECHAZAR SLTUD. DE APROBACIÓN DE NC" 
+                        type="object" class="btn-primary"
+                        groups="ancon.account_invoice_approve_reject_credit_notes"
+                        attrs="{'invisible': ['|', '|',('type', '!=', 'out_refund'), ('state', 'in', ['open', 'paid']), ('credit_note_state', '!=', 'pending')]}"
+                        />
+                    <button 
+                        name="action_credit_note_request_approve"
+                        string="APROBAR SLTUD. DE APROBACIÓN DE NC" 
+                        type="object" class="btn-primary"
+                        groups="ancon.account_invoice_approve_reject_credit_notes"
+                        attrs="{'invisible': ['|', '|',('type', '!=', 'out_refund'), ('state', 'in', ['open', 'paid']), ('credit_note_state', '!=', 'pending')]}"
+                        />
+                </xpath>
+            </field>
+        </record>
+        <!-- <record id="ancon.account_invoice_custom_discount_field_form" model="ir.ui.view">
+            <field name="name">ancon.account.invoioce.custom.discount.field.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='discount']" position="replace">
+                    <field name="custom_discount" groups="ancon.account_invoice_line_custom_discount_user"/>
+                </xpath>
+            </field>
+        </record> -->
+    </data>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="commission_group_manager" model="res.groups">
+            <field name="name">Gestionar Módulo de Comisiones</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="commission_group_user" model="res.groups">
+            <field name="name">Usar Módulo de Comisiones</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="commission_group_report_user" model="res.groups">
+            <field name="name">Ver reporte de comisiones</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="sales_order_by_cancel_report_user" model="res.groups">
+            <field name="name">Gestionar lista de presupuestos listos para ser cancelados</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="sales_order_edit_first_payment_date" model="res.groups">
+            <field name="name">Permisos para modificar la primera fecha de abono de un presupuesto</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+
+        <record id="account_invoice_add_credit_notes" model="res.groups">
+            <field name="name">Permisos para Validar Notas de Créditos</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="account_invoice_approve_reject_credit_notes" model="res.groups">
+            <field name="name">Permisos para Aprobar / Rechazar Notas de Créditos</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="account_invoice_request_credit_notes" model="res.groups">
+            <field name="name">Permisos para Solicitar Notas de Créditos</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="delivery_zones_group_manager" model="res.groups">
+            <field name="name">Gestionar Módulo de Rutas de Entrega</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="delivery_zones_group_user" model="res.groups">
+            <field name="name">Usar Módulo de Rutas de Entrega</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="withholding_certificate_group_manager" model="res.groups">
+            <field name="name">Gestionar Módulo de Certificados de Retenciones</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        
+        <record id="annex_reports_group_user" model="res.groups">
+            <field name="name">Ver reportes anexos</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="annex_daily_sales_report_group_user" model="res.groups">
+            <field name="name">Ver Reporte diario de Caja</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+        </record>
+    </data>
+</odoo>

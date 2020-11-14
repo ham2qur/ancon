@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record
+            id='ancon.devilery_zones_form'
+            model='ir.ui.view'>
+            <field name='name'>ancon.devilery.zone.form</field>
+            <field name='model'>ancon.delivery.zone</field>
+            <field name='arch' type='xml'>
+                <form>
+                    <sheet>
+                        <group>
+                            <field name='name' required="1"/>
+                            <field name='description' required="1" />
+                            <field name='country_id' readonly="1"/>
+                            <field 
+                                name='sector_ids' widget="many2many_tags" options="{ 'no_create': True, 'no_open': True }"
+                                required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record
+            id='ancon.delivery_zones_tree' model='ir.ui.view'>
+            <field name='name'>ancon.delivery.zones.tree</field>
+            <field name='model'>ancon.delivery.zone</field>
+            <field name='arch' type='xml'>
+                <tree>
+                    <field name='name'/>
+                    <field name='description'/>
+                    <field name='sector_ids'/>
+                </tree>
+            </field>
+        </record>
+        <record
+            id='ancon.delivery_zones_search'
+            model='ir.ui.view'>
+            <field name='name'>ancon.delivery.zones.search</field>
+            <field name='model'>ancon.delivery.zone</field>
+            <field name='arch' type='xml'>
+                <search>
+                    <field name='name'/>
+                    <field name='description'/>
+                    <field name='sector_ids'/>
+                </search>
+            </field>
+        </record>
+        <record
+            id='ancon.delivery_zones_window'
+            model='ir.actions.act_window'>
+            <field name='name'>Rutas de Entregas</field>
+            <field name='res_model'>ancon.delivery.zone</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form,search</field>
+        </record>
+        <menuitem
+            id='ancon.delivery_zones_menu_root'
+            name='Rutas de Entregas'
+            parent='sale.menu_sale_config'
+            sequence="11"
+            action='ancon.delivery_zones_window'
+            groups="ancon.delivery_zones_group_manager"
+            />
+    </data>
+</odoo>

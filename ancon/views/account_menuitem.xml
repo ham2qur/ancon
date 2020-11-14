@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem
+            id='ancon.account_accounting_menu_root'
+            name='Plan contable'
+            parent='account.account_account_menu'
+            sequence="9"
+            action='account.action_account_form'
+            />
+    </data>
+</odoo>

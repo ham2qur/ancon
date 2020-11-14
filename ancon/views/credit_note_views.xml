@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ancon.credit_note_create_form" model="ir.ui.view">
+            <field name="name">ancon.credit.note.create.form</field>
+            <field name="model">ancon.credit.note</field>
+            <field name="arch" type="xml">
+                <form string="Solicitar Creación de Nota de Cŕedito">
+                    <group id="credit_note_reason_group">
+                        <field name="invoice_id" readonly="1"/>
+                        <field name="reason" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_add_credit_note" string="Solicitar" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="ancon.credit_note_create_action" model="ir.actions.act_window">
+            <field name="name">Solicitud de Nota de Crédito</field>
+            <field name="res_model">ancon.credit.note</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+           <field name="view_id" ref="ancon.credit_note_create_form"/>
+           <field name="context">{'default_invoice_ids': [(4, active_id, None)]}</field>
+           <field name="target">new</field>
+        </record>
+        <record id="ancon.credit_note_reject_form" model="ir.ui.view">
+            <field name="name">ancon.credit.note.reject.form</field>
+            <field name="model">ancon.credit.note</field>
+            <field name="arch" type="xml">
+                <form string="Rechazar Solicitud de Nota de Cŕedito">
+                    <group id="credit_note_reason_group">
+                        <field name="invoice_id" readonly="1"/>
+                        <field name="current_state" readonly="1"/>
+                        <field name="current_reason"/>
+                        <field name="current_requested_on"/>
+                        <field name="reject_reason" required="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_credit_note_reject" string="Rechazar" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="ancon.credit_note_reject_action" model="ir.actions.act_window">
+            <field name="name">Rechazar Solicitud de Nota de Crédito</field>
+            <field name="res_model">ancon.credit.note</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+           <field name="view_id" ref="ancon.credit_note_reject_form"/>
+           <field name="context">{'default_invoice_ids': [(4, active_id, None)]}</field>
+           <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

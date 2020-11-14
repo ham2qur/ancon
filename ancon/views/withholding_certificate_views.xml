@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record
+            id='ancon.withholding_certificate_form'
+            model='ir.ui.view'>
+            <field name='name'>ancon.withholding.certificate.form</field>
+            <field name='model'>ancon.withholding.certificate</field>
+            <field name='arch' type='xml'>
+                <form edit="false" unlink="false">
+                    <header>
+                        <button name="validate_action" string="Validar" type="object" states="draft" class="btn-primary"/>
+                        <button name="print_action" string="Descargar Certificado" type="object" states="approved" class="btn-primary"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved" />
+                    </header>
+                    <sheet>
+                        <div>
+                            <h1 class="mt0">
+                                <field name="number" readonly="1" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group name="initial_info">
+                            <group name="certificated_on_info">
+                                <field name='certificated_on' required="1" string="Fecha" />
+                            </group>
+                        </group>
+                        <group>
+                            <group name="company_info" string="Información de la Compañía">
+                                <field name='company_id' widget="selection" options="{ 'no_create': True, 'no_open': True }" required="1" />
+                                <field name="company_ruc" readonly="1"/>
+                                <field name="company_dv" readonly="1"/>
+                            </group>
+                            <group name="withholding_info" string="Información de la Retención">
+                                <field 
+                                    name='account_tax_id' widget="selection"
+                                    options="{ 'no_create': True, 'no_open': True }" required="1"
+                                    domain="[('is_withholding_tax', '=', True)]"/>
+                                <field name="withholding_percentage" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group name="supplier_info" string="Retenciones aplicadas al Proveedor">
+                                <field name='supplier_id' 
+                                    options="{ 'no_create': True, 'no_open': True }"
+                                    domain="[('supplier', '=', True)]"
+                                    required="1"
+                                    />
+                                <field name="supplier_ruc" readonly="1"/>
+                                <field name="supplier_dv" readonly="1"/>
+                            </group>
+                            <group name="invoice_info" string="Aplicar Retención a la Factura">
+                                <field 
+                                    name='invoice_id' widget="selection"
+                                    options="{ 'no_create': True, 'no_open': True }" required="1"
+                                    domain="[('withholding_tax', '&lt;', 0), ('has_withholding_certificate', '=', False), ('state', 'in', ['open', 'paid'])]"/>
+                                <field name="invoice_subtotal"/>
+                                <field name="withholding_amount"/>
+                            </group>
+                        </group>
+                        <group name="comments_info">
+                            <field name="comments"/>
+                        </group>
+                        <!--
+                        <div name="comments_info">
+                            <label string="Área Responsable" />
+                            <field name="comments"/>    
+                        </div>
+                        -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record
+            id='ancon.withholding_certificate_tree' model='ir.ui.view'>
+            <field name='name'>ancon.withholding.certificate.tree</field>
+            <field name='model'>ancon.withholding.certificate</field>
+            <field name='arch' type='xml'>
+                <tree>
+                    <field name="number"/>
+                    <field name="state"/>
+                    <field name="invoice_id"/>
+                    <field name="supplier_id"/>
+                    <field name='certificated_on'/>
+                    <field name="company_id" />
+                    <field name="account_tax_id"/>
+                    <field name="withholding_percentage_formatted"/>
+                    <field name="invoice_subtotal"/>
+                    <field name="withholding_amount_formatted"/>
+                    <field name="write_uid" string="Creado por" />
+                    <field name="create_date_formatted"/>
+                </tree>
+            </field>
+        </record>
+        <record
+            id='ancon.withholding_certificate_search'
+            model='ir.ui.view'>
+            <field name='name'>ancon.withholding.certificate.search</field>
+            <field name='model'>ancon.withholding.certificate</field>
+            <field name='arch' type='xml'>
+                <search>
+                    <field name="number"/>
+                    <field name="state"/>
+                    <field name="invoice_id"/>
+                    <field name="supplier_id"/>
+                    <field name='certificated_on'/>
+                    <field name="company_id" />
+                    <field name="account_tax_id"/>
+                    <field name="withholding_percentage"/>
+                    <field name="invoice_subtotal"/>
+                    <field name="withholding_amount"/>
+                    <field name="write_uid"/>
+                </search>
+            </field>
+        </record>
+        <record
+            id='ancon.withholding_certificate_window'
+            model='ir.actions.act_window'>
+            <field name='name'>Certificados de Retenciones</field>
+            <field name='res_model'>ancon.withholding.certificate</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form,search</field>
+        </record>
+        <menuitem
+            id='ancon.withholding_certificate_menu_root'
+            name='Certificados de Retenciones'
+            parent='purchase.menu_procurement_management'
+            sequence="40"
+            action='ancon.withholding_certificate_window'
+            groups="ancon.withholding_certificate_group_manager"
+            />
+    <!-- <menuitem
+            id='ancon.withholding_certificate_menu_root_invoicing'
+            name='Certificados de Retenciones'
+            parent='account.menu_finance_payables_documents'
+            sequence="40"
+            action='ancon.withholding_certificate_window'
+            groups="ancon.withholding_certificate_group_manager"
+	    /> -->
+    </data>
+</odoo>

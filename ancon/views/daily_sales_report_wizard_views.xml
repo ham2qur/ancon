@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='ancon.daily_sales_report_wizard_form' model='ir.ui.view'>
+            <field name='name'>ancon.daily.sales.report.wizard.form</field>
+            <field name='model'>ancon.daily_sales_report_wizard</field>
+            <field name='arch' type='xml'>
+                <form edit="false" unlink="false">
+                    <group>
+                        <field name='start_on'/>
+                        <field name='end_on'/>
+                        <field string="Sucursales" name="get_store" context="{'user_preference': 0}" options="{'no_create_edit': True}"/>
+                    </group>
+                    <footer>
+                        <button name="generate_report" string="Imprimir" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record
+            id='ancon.daily_sales_report_wizard_window'
+            model='ir.actions.act_window'>
+            <field name='name'>Diario de Caja</field>
+            <field name='res_model'>ancon.daily_sales_report_wizard</field>
+            <!--<field name='view_type'>form</field>-->
+            <field name='view_mode'>form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem
+            id='ancon.daily_sales_report_wizard_root'
+            name='Ventas'
+            parent='account.menu_finance_reports'
+            sequence="12"
+            groups="ancon.annex_daily_sales_report_group_user"
+            />
+        <menuitem
+            id='ancon.daily_sales_report_wizard_action'
+            name='Diario de Caja'
+            parent='ancon.daily_sales_report_wizard_root'
+            sequence="0"
+            action='ancon.daily_sales_report_wizard_window'
+            groups="ancon.annex_daily_sales_report_group_user"
+            />
+    </data>
+</odoo>

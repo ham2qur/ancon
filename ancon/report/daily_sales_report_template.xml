@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+<template id="ancon.daily_sales_report_queryset">
+    <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+        <div class="page">
+            <div class="text-center">
+              <br></br>
+                <h4>INFORME DIARIO DE CAJA</h4>
+               <!-- <h3><t t-esc="store_id.name"/></h3>
+                <strong>Fecha Inicial: <t t-esc="start_on" t-options="{'widget': 'date'}"/> - Fecha Final: <t t-esc="end_on" t-options="{'widget': 'date'}"/></strong> -->
+            </div>
+            <table  class="table table-condensed">
+              <thead align="cender">
+                <tr>
+                  <th>Generado por</th>
+                  <th>Sucursal</th>
+                  <th>Fecha Incial</th>
+                  <th>Fecha Final</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr align="left">
+                  <td><t t-esc="env.user.partner_id.name"/></td>
+                  <td><t t-esc="store_id.name"/></td>
+                  <td><t t-esc="start_on" t-options="{'widget': 'date'}"/></td>
+                  <td><t t-esc="end_on" t-options="{'widget': 'date'}"/></td>
+                </tr>
+              </tbody>
+            </table>
+            <BR/>
+            <h4>MOVIMIENTOS</h4>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Referencia</th>
+                        <th>Cliente</th>
+                        <th>Método de Pago</th>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set='no' t-value='0' />
+                    <tr t-foreach="invoices" t-as="invoice">
+                        <t t-set='no' t-value="no+1"/>
+                        <td><t t-esc="no"/></td>
+                        <td><t t-esc="invoice['invoice_number']"/></td>
+                        <td><t t-esc="invoice['partner_name']"/></td>
+                        <td><t t-esc="invoice['journal_name']"/></td>
+                        <td><t t-esc="invoice['date_invoice']" t-options="{'widget': 'date'}"/></td>
+                        <td align="right"><t t-esc="invoice['amount_total']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Total</th>
+                        <td align="right"><t t-esc="invoices_total" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    </tr>
+                </thead>                
+            </table>
+            <br/>
+            <br/>
+            <!-- <strong>Total Facturas: <t t-esc="invoices_total" t-options="{'widget': 'float', 'precision': currency_precision}"/></strong>
+            <br/>
+            <br/> 
+            <h3>Resumen por forma de pago</h3> -->
+            <div width="100%">
+                <div width="25%">
+                    <table style="float: left" width="25%" class="table-condensed">
+                        <thead>
+                            <th>Forma de pago</th>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="subtotals" t-as="subtotal">
+                                <td><t t-esc="subtotal['name']"/></td>
+                            </tr>
+                        </tbody>
+                        <th>Total</th>
+                    </table>
+                </div>
+            <!-- dd -->
+                <div width="25%">
+                    <table style="float: left" width="25%" class="table-condensed">
+                        <thead>
+                            <th style="float: right" float='right'>Subtotal</th>
+                        </thead>
+                        <tbody style="float: right" float='right'>
+                            <tr t-foreach="subtotals" t-as="subtotal">
+                                <td align="right"><t t-esc="subtotal['total']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                            </tr>
+                            <th><t t-esc="subtotals_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- dd -->
+                <div width="25%">
+                    <table style="float: left" width="25%" class="table-condensed" >
+                        <thead>
+                            <th style="float: right" float='right'>Comisión</th>
+                        </thead>
+                        <tbody style="float: right" float='right'>
+                            <tr t-foreach="percentages" t-as="percentage">
+                                <td align="right"><t t-esc="percentage['total']" t-options="{'align':'right', 'widget': 'float', 'precision': currency_precision}"/></td>
+                            </tr>
+                            <th><t t-esc="percentages_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>   
+                        </tbody>
+                    </table>
+                </div>
+                <!-- dd -->
+                <div width="25%">
+                    <table style="float: right" width="25%" class="table-condensed" >
+                        <thead>
+                            <th style="float: right">Total</th>
+                        </thead>
+                        <tbody style="float: right" float='right'>
+                            <tr t-foreach="payments" t-as="payment">
+                                <td align="right"><t t-esc="payment['total']" t-options="{'align':'right', 'widget': 'float', 'precision': currency_precision}"/></td>
+                            </tr>
+                            <th><t t-esc="payments_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>   
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- dd -->
+            <!-- <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Total</th>
+                            <th><t t-esc="subtotals_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>
+                            <th><t t-esc="percentages_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>
+                            <th><t t-esc="payments_total" t-options="{'align':'right' ,'widget': 'float', 'precision': currency_precision}"/></th>
+                        </tr>
+                    </thead>                    
+            </table> -->
+
+            <!-- h3>Impuestos</h3>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Impuesto</th>
+                        <th>Monto total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="taxes" t-as="tax">
+                        <td><t t-esc="tax['name']"/></td>
+                        <td><t t-esc="tax['total']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    </tr>
+                </tbody>
+            </table> 
+            <br/>
+            <br/>
+            <strong>Total Impuestos: <t t-esc="taxes_total" t-options="{'widget': 'float', 'precision': currency_precision}"/></strong>-->
+        </div>
+    </t>
+    </t>
+</template>
+</data>
+</odoo>

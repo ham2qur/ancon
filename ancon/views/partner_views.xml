@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='ancon.res_partner_nationality_type_partners_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.nationality.type.partners.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.nationality_type_partners_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='partner_nationality']" position='replace'>
+                    <field name="is_company" invisible="1"/>
+                    <field name="supplier" invisible="1"/>
+                    <field
+                        name='partner_nationality'
+                        string="Nacionalidad"
+                        attrs="{'invisible': [ '|', ('is_company', '=', True), ('supplier','=', False)], 'required': [('supplier', '=', True), ('is_company', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_country_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.country.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.address_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='neonety_country_id']" position='replace'>
+                    <field 
+                        name='neonety_country_id'
+                        options="{ 'no_create': True, 'no_open': True }"
+                        required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_province_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.province.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.address_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='province_id']" position='replace'>
+                    <field 
+                        name='province_id'
+                        string="Provincia"
+                        options="{ 'no_create': True, 'no_open': True }"
+                        required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_district_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.district.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.address_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='district_id']" position='replace'>
+                    <field 
+                        name='district_id'
+                        options="{ 'no_create': True, 'no_open': True }"
+                        required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_sector_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.sector.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.address_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='sector_id']" position='replace'>
+                    <field 
+                        name='sector_id'
+                        options="{ 'no_create': True, 'no_open': True }"
+                        required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_street_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.street.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.address_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='street']" position='replace'>
+                    <field name='street' string="Lugar" required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_ruc_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.ruc.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.partners_ruc_dv_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='ruc']" position='replace'>
+                    <field name='ruc' style="width:170px!important;" required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_dv_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.dv.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.partners_ruc_dv_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='dv']" position='replace'>
+                    <field name="supplier" invisible="1" />
+                    <field name='dv' style="width:50px!important;" attrs="{'required': [('supplier', '=', True)]}" />
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_phone_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.phone.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='base.view_partner_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='phone']" position='replace'>
+                    <field name="phone" widget="phone" required="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_mobile_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.mobile.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='base.view_partner_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='mobile']" position='replace'>
+                    <field name="mobile" widget="phone" required="1" />
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_email_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.email.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='base.view_partner_form'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='email']" position='replace'>
+                    <field name="email" widget="email" context="{'gravatar_image': True}" required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_concept_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.concept.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.operation_notice_number_field'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='neonety_partner_concept_id']" position='replace'>
+                    <field name="supplier" invisible="1" />
+                    <field
+                        name='neonety_partner_concept_id'
+                        options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_type_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.type.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.nationality_type_partners_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='partner_type']" position='replace'>
+                    <field name="supplier" invisible="1" />
+                    <field name='partner_type' widget='selection' attrs="{'required': [('supplier', '=', True)]}" />
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_sex_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.sex.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.partners_ruc_dv_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='sex']" position='replace'>
+                    <field name="is_company" invisible="1"/>
+                    <field name='sex'  attrs="{'invisible': [('is_company', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_birthdate_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.birthdate.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.partners_ruc_dv_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='birth_date']" position='replace'>
+                    <field name="is_company" invisible="1"/>
+                    <field name='birth_date' attrs="{'invisible': [('is_company', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_age_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.age.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.partners_ruc_dv_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='age']" position='replace'>
+                    <field name="is_company" invisible="1"/>
+                    <field name='age' readonly="1" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.res_partner_address_fields' model='ir.ui.view'>
+            <field name='name'>ancon.res.partner.address.fields</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='neonety.address_fields'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='street']" position='after'>
+                    <br />
+                    <label for='reference' string='Referencia del lugar: ' style="font-weight:bold;" />
+                    <br />
+                    <field name='reference' required="1"/>
+                    <br />
+                    <label for='home_type' string='Tipo de lugar: ' style="font-weight:bold;" />
+                    <br />
+                    <field name='home_type' widget="radio"/>
+                    <br />
+                    <label for='home_number' string='Casa No: ' style="font-weight:bold;" attrs="{'invisible': [('home_type', '==', 'edificio')]}" />
+                    <label for='home_number' string='Apartamento No: ' style="font-weight:bold;" attrs="{'invisible': [('home_type', '==', 'casa')]}"  />
+                    <br />
+                    <field name='home_number' required="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id='ancon.ruc_filter_res_partner_filter' model='ir.ui.view'>
+            <field name='name'>ancon.ruc.filter.res.partner.filter</field>
+            <field name='model'>res.partner</field>
+            <field name='inherit_id' ref='base.view_res_partner_filter'/>
+            <field name='arch' type='xml'>
+                <xpath expr="//field[@name='name']" position='after'>
+                    <field name="ruc" string="RUC"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

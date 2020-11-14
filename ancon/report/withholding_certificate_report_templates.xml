@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ancon.withholding_certificate_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.write_uid.lang})" />
+            <div class="page">
+                <div class="oe_structure"/>
+                <div class="clearfix">
+                    <div class="col-xs-12">
+                        <style type="text/css">
+                            * {
+                                font-size: 9px;
+                            }
+                            table {
+                                width: 100%;
+                            }
+                            table td, table th {
+                                border: none!important;
+                            }
+                            table, table td, table th {
+                                border: 1px solid black!important;
+                                padding: 10px;
+                            }
+
+                        </style>
+                        <table name="company_info">
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" style="width:100%;text-align:center!important;"><strong>CERTIFICADO DE RETENCIONES</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:40%;text-align:right!important;"><strong>FECHA:</strong></td>
+                                    <td style="width:15%;text-align:center!important;"><span t-field="doc.certificated_on"/></td>
+                                    <td style="width:30%;text-align:right!important;"><strong>NUMERO DE REGISTRO:</strong></td>
+                                    <td style="width:20%;text-align:center!important;"><span t-field="doc.number"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:40%;text-align:right!important;"><strong>RETENCIONES EN LA FUENTE POR:</strong></td>
+                                    <td colspan="3" style="width:60%;text-align:center!important;"><span t-field="doc.company_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:40%;text-align:right!important;"><strong>RUC:</strong></td>
+                                    <td style="width:15%;text-align:center!important;"><span t-field="doc.company_ruc"/></td>
+                                    <td style="width:30%;text-align:right!important;"><strong>DV:</strong></td>
+                                    <td style="width:20%;text-align:center!important;"><span t-field="doc.company_dv"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table name="supplier_info">
+                            <tbody>
+                                <tr>
+                                    <td style="width:30%;text-align:right!important;"><strong>RETENCIONES APLICADAS A:</strong></td>
+                                    <td style="width:35%;text-align:center!important;"><span t-field="doc.supplier_id"/></td>
+                                    <td style="width:10%;text-align:right!important;"><strong>FACTURA:</strong></td>
+                                    <td style="width:20%;text-align:center!important;"><span t-field="doc.invoice_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%;text-align:right!important;"><strong>RUC:</strong></td>
+                                    <td style="width:35%;text-align:center!important;"><span t-field="doc.supplier_ruc"/></td>
+                                    <td style="width:10%;text-align:right!important;"><strong>DV:</strong></td>
+                                    <td style="width:20%;text-align:center!important;"><span t-field="doc.supplier_dv"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table name="invoice_info">
+                            <tbody>
+                                <tr>
+                                    <th style="width:30%;text-align:center!important;">TIPO DE<br/>RETENCIÓN</th>
+                                    <th style="width:15%;text-align:center!important;">FECHA DE<br/>CREACIÓN</th>
+                                    <th style="width:25%;text-align:center!important;">MONTO SUJETO A<br/>RETENCIÓN</th>
+                                    <th style="width:15%;text-align:center!important;">ALICUOTA<br/>APLICADA</th>
+                                    <th style="width:15%;text-align:center!important;">MONTO<br/>RETENIDO</th>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%;text-align:center!important;"><span t-field="doc.account_tax_id"/></td>
+                                    <td style="width:15%;text-align:center!important;"><span t-field="doc.create_date_formatted"/></td>
+                                    <td style="width:25%;text-align:right!important;"><t t-esc="'{0:.2f}'.format(doc.invoice_subtotal)" /></td>
+                                    <td style="width:15%;text-align:right!important;"><t t-esc="doc.withholding_percentage_formatted" /></td>
+                                    <td style="width:15%;text-align:right!important;"><t t-esc="doc.withholding_amount_formatted" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%;text-align:right!important;"><strong>CREADO POR</strong></td>
+                                    <td style="width:15%;text-align:center!important;"><span t-field="doc.write_uid"/></td>
+                                    <td style="width:25%;text-align:right!important;"><strong>ÁREA RESPONSABLE</strong></td>
+                                    <td colspan="2" style="width:30%;text-align:center!important;"><t t-esc="doc.comments" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+    <template id="ancon.withholding_certificate">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ancon.withholding_certificate_document" t-lang="doc.write_uid.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>
