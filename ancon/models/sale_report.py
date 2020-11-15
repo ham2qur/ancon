@@ -91,7 +91,8 @@ class ReportDailySales(models.AbstractModel):
         data = {}
         if user_id and start_on and end_on and get_store:
             data['store_id'] = self.env['res.store'].browse(get_store)
-            #data['store_id'] = self.env.user.store_id
+            if not data['store_id']:
+                data['store_id'] = self.env.user.store_id
             invoices = self.env['ancon.daily.sales.report'].search_read(
                 [('store_id', '=', get_store), ('date_invoice', '>=', start_on), ('date_invoice', '<=', end_on)])
             invoices_total = 0
@@ -145,9 +146,9 @@ class DailySalesReportWizard(models.TransientModel):
     Daily sales report Wizard form
     """
     _name = 'ancon.daily_sales_report_wizard'
-    start_on = fields.Date(string='Fecha Inicial', required=True)
-    end_on = fields.Date(string='Fecha Final', required=True)
-    get_store = fields.Many2one('res.store','Store')
+    start_on = fields.Date(string=_('Fecha Inicial'), required=True)
+    end_on = fields.Date(string=_('Fecha Final'), required=True)
+    get_store = fields.Many2one('res.store', _('Store'))
 
 
     @api.depends('start_on')
@@ -158,7 +159,7 @@ class DailySalesReportWizard(models.TransientModel):
             #end_on_obj = datetime.strptime(self.end_on, '%Y-%m-%d')
             #if end_on_obj < start_on_obj:
             if self.end_on < self.start_on:
-                raise ValidationError("La fecha es inválida, la Fecha Final no puede ser menor que la Fecha inicial")
+                raise ValidationError(_("La fecha es inválida, la Fecha Final no puede ser menor que la Fecha inicial"))
 
     @api.multi
     def generate_report(self):
@@ -189,18 +190,19 @@ class DailySalesReport(models.Model):
     #partner_id = fields.Integer(string='Partner ID',readonly=True)
     #write_uid = fields.Integer(string='Write UID',readonly=True)
     
-    invoice_number = fields.Char(string='Invoice Number',readonly=True)
+    invoice_number = fields.Char(string=_('Invoice Number'),readonly=True)
     
     #state = fields.Char(string='Invoice State',readonly=True)
     #type = fields.Char(string='Invoice Type',readonly=True)
     
-    partner_name = fields.Char(string='Partner Name',readonly=True)
+    partner_name = fields.Char(string=_('Partner Name'), readonly=True)
     #store_name = fields.Char(string='Store Name',readonly=True)
-    journal_name = fields.Char(string='Método de Pago',readonly=True)
-    date_invoice = fields.Date(string='Date Invoice',readonly=True)
-    store_id = fields.Integer(string='Store ID',readonly=True)
-    amount_total = fields.Float(string='Amount Total',readonly=True)
-
+    journal_name = fields.Char(string=_('Método de Pago'), readonly=True)
+    date_invoice = fields.Date(string=_('Date Invoice'), readonly=True)
+    store_id = fields.Integer(string=_('Store ID'), readonly=True)
+    amount_total = fields.Float(string=_('Amount Total'), readonly=True)
+    
+    @api.model_cr
     def init(self):
         tools.drop_view_if_exists(self._cr, 'ancon_daily_sales_report')
         self._cr.execute("""
